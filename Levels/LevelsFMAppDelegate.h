@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Security/Security.h>
+
+@class UserStationsViewController;
+@class LevelsFMViewController;
+@class LoginViewController;
 
 @interface LevelsFMAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
+    @property (strong, nonatomic) UIWindow *window;
+    @property (nonatomic, retain) LevelsFMViewController *levelsFMViewController;
+    @property (nonatomic, retain) UserStationsViewController *userStationsViewController;
+    @property (nonatomic, retain) LoginViewController *loginViewController;
 @end

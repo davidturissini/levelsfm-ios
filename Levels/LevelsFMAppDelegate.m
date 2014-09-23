@@ -7,15 +7,31 @@
 //
 
 #import "LevelsFMAppDelegate.h"
+#import "UserStationsViewController.h"
+#import "LevelsFMViewController.h"
+#import "LoginViewController.h"
+
 
 @implementation LevelsFMAppDelegate
 
+@synthesize window, userStationsViewController, levelsFMViewController, loginViewController;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    levelsFMViewController = [[LevelsFMViewController alloc] initWithNibName:@"LevelsFMViewController" bundle:nil];
+    
+    userStationsViewController = [[UserStationsViewController alloc] initWithNibName:@"UserStationsViewController" bundle:nil];
+    
+    //loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+
+    
+    [levelsFMViewController pushViewController:userStationsViewController animated:NO];
+    window.rootViewController = levelsFMViewController;
+    
+    [window makeKeyAndVisible];
+    
     return YES;
 }
 
