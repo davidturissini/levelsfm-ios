@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E405D6E19C41ADE003C8696 /* UserStationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E405D6C19C41ADE003C8696 /* UserStationsViewController.m */; };
+		0E405D6F19C41ADE003C8696 /* UserStationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E405D6D19C41ADE003C8696 /* UserStationsViewController.xib */; };
+		0E67EA8019CB977D00841418 /* StationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA7E19CB977D00841418 /* StationViewController.m */; };
+		0E67EA8119CB977D00841418 /* StationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E67EA7F19CB977D00841418 /* StationViewController.xib */; };
+		0E67EA8519CB9EDC00841418 /* Station.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA8419CB9EDC00841418 /* Station.m */; };
+		0E67EA8819CBA9FA00841418 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA8719CBA9FA00841418 /* Model.m */; };
+		0E67EA8B19CBB9D900841418 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA8A19CBB9D900841418 /* Track.m */; };
+		0E67EA8E19CBC0DD00841418 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA8D19CBC0DD00841418 /* User.m */; };
+		0E67EA9119CBC48600841418 /* LevelsFM.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67EA9019CBC48600841418 /* LevelsFM.m */; };
+		0E67EA9719D1068800841418 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E67EA9619D1068800841418 /* AVFoundation.framework */; };
 		0EDA950419A1B90900F68023 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EDA950319A1B90900F68023 /* Foundation.framework */; };
 		0EDA950619A1B90900F68023 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EDA950519A1B90900F68023 /* CoreGraphics.framework */; };
 		0EDA950819A1B90900F68023 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EDA950719A1B90900F68023 /* UIKit.framework */; };
@@ -19,6 +29,11 @@
 		0EDA951F19A1B90A00F68023 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EDA950719A1B90900F68023 /* UIKit.framework */; };
 		0EDA952719A1B90A00F68023 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA952519A1B90A00F68023 /* InfoPlist.strings */; };
 		0EDA952919A1B90A00F68023 /* LevelsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA952819A1B90A00F68023 /* LevelsTests.m */; };
+		0EDA953519A1BDDB00F68023 /* LevelsFMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA953319A1BDDB00F68023 /* LevelsFMViewController.m */; };
+		0EDA953619A1BDDB00F68023 /* LevelsFMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA953419A1BDDB00F68023 /* LevelsFMViewController.xib */; };
+		0EDA953A19A46EA800F68023 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA953819A46EA800F68023 /* LoginViewController.m */; };
+		0EDA953B19A46EA800F68023 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EDA953919A46EA800F68023 /* LoginViewController.xib */; };
+		0EDA954119A71C2100F68023 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EDA954019A71C2100F68023 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +47,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E405D6B19C41ADE003C8696 /* UserStationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStationsViewController.h; sourceTree = "<group>"; };
+		0E405D6C19C41ADE003C8696 /* UserStationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStationsViewController.m; sourceTree = "<group>"; };
+		0E405D6D19C41ADE003C8696 /* UserStationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStationsViewController.xib; sourceTree = "<group>"; };
+		0E67EA7D19CB977D00841418 /* StationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationViewController.h; sourceTree = "<group>"; };
+		0E67EA7E19CB977D00841418 /* StationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationViewController.m; sourceTree = "<group>"; };
+		0E67EA7F19CB977D00841418 /* StationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StationViewController.xib; sourceTree = "<group>"; };
+		0E67EA8319CB9EDC00841418 /* Station.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Station.h; sourceTree = "<group>"; };
+		0E67EA8419CB9EDC00841418 /* Station.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Station.m; sourceTree = "<group>"; };
+		0E67EA8619CBA9D400841418 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		0E67EA8719CBA9FA00841418 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		0E67EA8919CBB9D900841418 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
+		0E67EA8A19CBB9D900841418 /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
+		0E67EA8C19CBC0DD00841418 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		0E67EA8D19CBC0DD00841418 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		0E67EA8F19CBC48600841418 /* LevelsFM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelsFM.h; sourceTree = "<group>"; };
+		0E67EA9019CBC48600841418 /* LevelsFM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelsFM.m; sourceTree = "<group>"; };
+		0E67EA9619D1068800841418 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0EDA950019A1B90900F68023 /* Levels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Levels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EDA950319A1B90900F68023 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0EDA950519A1B90900F68023 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +80,13 @@
 		0EDA952419A1B90A00F68023 /* LevelsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LevelsTests-Info.plist"; sourceTree = "<group>"; };
 		0EDA952619A1B90A00F68023 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0EDA952819A1B90A00F68023 /* LevelsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LevelsTests.m; sourceTree = "<group>"; };
+		0EDA953219A1BDDB00F68023 /* LevelsFMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelsFMViewController.h; sourceTree = "<group>"; };
+		0EDA953319A1BDDB00F68023 /* LevelsFMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelsFMViewController.m; sourceTree = "<group>"; };
+		0EDA953419A1BDDB00F68023 /* LevelsFMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LevelsFMViewController.xib; sourceTree = "<group>"; };
+		0EDA953719A46EA800F68023 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0EDA953819A46EA800F68023 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0EDA953919A46EA800F68023 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		0EDA954019A71C2100F68023 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E67EA9719D1068800841418 /* AVFoundation.framework in Frameworks */,
+				0EDA954119A71C2100F68023 /* Security.framework in Frameworks */,
 				0EDA950619A1B90900F68023 /* CoreGraphics.framework in Frameworks */,
 				0EDA950819A1B90900F68023 /* UIKit.framework in Frameworks */,
 				0EDA950419A1B90900F68023 /* Foundation.framework in Frameworks */,
@@ -74,6 +115,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E67EA8219CB9EC800841418 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0E67EA8319CB9EDC00841418 /* Station.h */,
+				0E67EA8419CB9EDC00841418 /* Station.m */,
+				0E67EA8619CBA9D400841418 /* Model.h */,
+				0E67EA8719CBA9FA00841418 /* Model.m */,
+				0E67EA8919CBB9D900841418 /* Track.h */,
+				0E67EA8A19CBB9D900841418 /* Track.m */,
+				0E67EA8C19CBC0DD00841418 /* User.h */,
+				0E67EA8D19CBC0DD00841418 /* User.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		0EDA94F719A1B90900F68023 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +152,8 @@
 		0EDA950219A1B90900F68023 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E67EA9619D1068800841418 /* AVFoundation.framework */,
+				0EDA954019A71C2100F68023 /* Security.framework */,
 				0EDA950319A1B90900F68023 /* Foundation.framework */,
 				0EDA950519A1B90900F68023 /* CoreGraphics.framework */,
 				0EDA950719A1B90900F68023 /* UIKit.framework */,
@@ -107,10 +165,24 @@
 		0EDA950919A1B90900F68023 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				0E67EA8219CB9EC800841418 /* model */,
+				0EEDECBB19C686450062FAA1 /* service */,
 				0EDA951219A1B90900F68023 /* LevelsFMAppDelegate.h */,
 				0EDA951319A1B90900F68023 /* LevelsFMAppDelegate.m */,
 				0EDA951519A1B90900F68023 /* Images.xcassets */,
 				0EDA950A19A1B90900F68023 /* Supporting Files */,
+				0EDA953219A1BDDB00F68023 /* LevelsFMViewController.h */,
+				0EDA953319A1BDDB00F68023 /* LevelsFMViewController.m */,
+				0EDA953419A1BDDB00F68023 /* LevelsFMViewController.xib */,
+				0EDA953719A46EA800F68023 /* LoginViewController.h */,
+				0EDA953819A46EA800F68023 /* LoginViewController.m */,
+				0EDA953919A46EA800F68023 /* LoginViewController.xib */,
+				0E405D6B19C41ADE003C8696 /* UserStationsViewController.h */,
+				0E405D6C19C41ADE003C8696 /* UserStationsViewController.m */,
+				0E405D6D19C41ADE003C8696 /* UserStationsViewController.xib */,
+				0E67EA7D19CB977D00841418 /* StationViewController.h */,
+				0E67EA7E19CB977D00841418 /* StationViewController.m */,
+				0E67EA7F19CB977D00841418 /* StationViewController.xib */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -142,6 +214,15 @@
 				0EDA952519A1B90A00F68023 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0EEDECBB19C686450062FAA1 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				0E67EA8F19CBC48600841418 /* LevelsFM.h */,
+				0E67EA9019CBC48600841418 /* LevelsFM.m */,
+			);
+			name = service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +273,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "David Turissini";
 				TargetAttributes = {
+					0EDA94FF19A1B90900F68023 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					0EDA951A19A1B90A00F68023 = {
 						TestTargetID = 0EDA94FF19A1B90900F68023;
 					};
@@ -220,8 +308,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EDA953B19A46EA800F68023 /* LoginViewController.xib in Resources */,
+				0E405D6F19C41ADE003C8696 /* UserStationsViewController.xib in Resources */,
+				0EDA953619A1BDDB00F68023 /* LevelsFMViewController.xib in Resources */,
 				0EDA950E19A1B90900F68023 /* InfoPlist.strings in Resources */,
 				0EDA951619A1B90900F68023 /* Images.xcassets in Resources */,
+				0E67EA8119CB977D00841418 /* StationViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +332,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E67EA8E19CBC0DD00841418 /* User.m in Sources */,
+				0E67EA9119CBC48600841418 /* LevelsFM.m in Sources */,
+				0E67EA8B19CBB9D900841418 /* Track.m in Sources */,
+				0EDA953A19A46EA800F68023 /* LoginViewController.m in Sources */,
+				0E405D6E19C41ADE003C8696 /* UserStationsViewController.m in Sources */,
+				0EDA953519A1BDDB00F68023 /* LevelsFMViewController.m in Sources */,
+				0E67EA8819CBA9FA00841418 /* Model.m in Sources */,
+				0E67EA8019CB977D00841418 /* StationViewController.m in Sources */,
 				0EDA951419A1B90900F68023 /* LevelsFMAppDelegate.m in Sources */,
+				0E67EA8519CB9EDC00841418 /* Station.m in Sources */,
 				0EDA951019A1B90900F68023 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +461,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Levels/Levels-Prefix.pch";
 				INFOPLIST_FILE = "Levels/Levels-Info.plist";
@@ -440,6 +542,7 @@
 				0EDA952E19A1B90A00F68023 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0EDA952F19A1B90A00F68023 /* Build configuration list for PBXNativeTarget "LevelsTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +551,7 @@
 				0EDA953119A1B90A00F68023 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
