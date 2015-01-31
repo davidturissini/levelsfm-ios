@@ -10,6 +10,8 @@
 #import "LevelsFM.h"
 #import "Track.h"
 #import <AVFoundation/AVFoundation.h>
+#import "SCUI.h"
+
 
 @interface StationViewController ()
 
@@ -17,62 +19,113 @@
 
 @implementation StationViewController
 
-@synthesize station;
-AVPlayer* player;
+@synthesize station, currentTrack;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSString *title = [self.station get:@"title"];
+    [_trackLoading startAnimating];
     
-    NSLog(@"Selected %@", title);
-    [self.stationTitle setText:title];
-    
-    LevelsFM *levels = [[LevelsFM alloc] init];
-    levels.delegate = self;
-    
-    [levels request:@"/stations/534644e1e5b5f80200000007/tracks/next" params:nil];
+    [self _initPlayer];
+    [self _initPlaylist];
+
 }
 
-- (void) jsonDidFinishLoading:(LevelsFM *) sender json:(id)data {
-    //Track *track = [[Track alloc] initWithAttributes:data];
+- (void)setStation:(Station *)incomingStation {
+    station = incomingStation;
+    station.delegate = self;
+    [station getNextTrack];
+    [self setTitle:[station get:@"title"]];
+}
 
-    NSString *path = @"https://api.soundcloud.com/tracks/135573147/stream?client_id=99308a0184193d62e064cb770f4c1eae";
+- (void)stationNextTrackDidLoad:(Track *)track {
+    [_playlist enqueue:track];
     
-    NSURL *audioURL = [NSURL URLWithString:path];
-    NSError *playerError;
-    
-    player = [[AVPlayer alloc] initWithURL:audioURL];
-    
-    
-    if (playerError)
-        
-    {
-        
-        NSLog(@"Error in audioPlayer: %@",
-              
-              
-              [playerError localizedDescription]);
-        
+    if (currentTrack == nil) {
+        [self _playNext];
     }
-    
-    
-    [player play];
-    
 }
 
-- (void)didReceiveMemoryWarning
+- (void)_playNext {
+    currentTrack = [_playlist dequeue];
+    [currentTrack fetchSCData:^(NSDictionary* scTrackData){
+        [self.trackLoading removeFromSuperview];
+        NSMutableString *streamURL = [[NSMutableString alloc] initWithString:[scTrackData valueForKey:@"stream_url"]];
+        
+        NSDictionary *artistData = [scTrackData valueForKey:@"user"];
+        
+        NSData *artistImageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[artistData valueForKey:@"avatar_url"]]];
+        UIImage *image = [[UIImage alloc] initWithData:artistImageData];
+        [_artistImageView setImage:image];
+        _artistName.text = [artistData valueForKey:@"username"];
+        _trackName.text = [scTrackData valueForKey:@"title"];
+        
+        [streamURL appendString:@"?client_id=99308a0184193d62e064cb770f4c1eae"];
+        
+        _player.src = [NSURL URLWithString:streamURL];
+        
+    }];
+}
+
+- (void) _initPlaylist {
+    _playlist = [[Queue alloc] init];
+}
+
+- (void)_initPlayer {
+    _player = [[Player alloc] init];
+    
+    CGRect playerViewRect = CGRectMake(0, self.view.frame.size.height - 70, self.view.frame.size.width, 50);
+    
+    _playerView = [[UIPlayerView alloc] initWithFrameAndPlayer:playerViewRect player:_player];
+    [_playerView setPlayer:_player];
+    [self.view addSubview:_playerView];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPlayerCanPlay:) name:@"canplay" object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPlayerPlay:) name:@"play" object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPlayerEnded:) name:@"ended" object:_player];
+}
+
+- (void)onPlayerEnded:(NSNotificationCenter *)notificationCenter {
+    NSLog(@"player ended");
+    [self _playNext];
+}
+
+-(void)onPlayerPlay:(NSNotificationCenter *)notificationCenter {
+    [station getNextTrack];
+}
+
+-(void)onPlayerCanPlay:(NSNotificationCenter *)notificationCenter {
+    [_player play];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //End recieving events
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+}
+
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    
+    //Once the view has loaded then we can register to begin recieving controls and we can become the first responder
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
+}
+
+
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

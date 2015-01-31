@@ -41,7 +41,7 @@
     NSString *username = self.userNameField.text;
     NSString *password = self.passwordField.text;
     
-    [user login:username password:password requestDelegate:self];
+    [user login:username password:password];
     
 }
 

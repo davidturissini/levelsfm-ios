@@ -9,7 +9,7 @@
 #import "UserStationsViewController.h"
 #import "StationViewController.h"
 #import "LevelsFM.h"
-
+#import "User.h"
 
 
 @interface UserStationsViewController ()
@@ -25,6 +25,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         stationsArray = [[NSMutableArray alloc] init];
+        [_loadingView startAnimating];
+        
+        _user = [User shared];
+        [_user fetchStations:^(NSDictionary * stationsArrayJSON, NSURLResponse * response, NSError * error) {
+            [self jsonDidFinishLoading:stationsArrayJSON];
+        }];
+        
+        
     }
     return self;
 }
@@ -33,15 +41,14 @@
 {
     [super viewDidLoad];
     
-    LevelsFM *levels = [[LevelsFM alloc] init];
-    levels.delegate = self;
     
-    [levels request:@"/users/daveturissini/stations" params:nil];
 }
+
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if (indexPath.row < stationsArray.count - 1) {
     Station *station = [stationsArray objectAtIndex:indexPath.row];
     
     
@@ -52,6 +59,9 @@
     stationView.station = station;
     
     [self.navigationController pushViewController:stationView animated:YES];
+    } else {
+        [_user logout];
+    }
     
 }
 
@@ -60,6 +70,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
     static NSString *CellIdentifier = @"Item";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -68,15 +80,22 @@
               UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    Station *station = [stationsArray objectAtIndex:indexPath.row];
+    if (indexPath.row < stationsArray.count - 1) {
     
-    cell.detailTextLabel.text = [station get:@"title"];
+        Station *station = [stationsArray objectAtIndex:indexPath.row];
+    
+        cell.detailTextLabel.text = [station get:@"title"];
+        
+    } else {
+        cell.detailTextLabel.text = @"Logout";
+    }
+    
     cell.imageView.frame = CGRectMake(0, 0, 80, 70);
     
     return cell;
 }
 
-- (void) jsonDidFinishLoading:(LevelsFM *) sender json:(id)data {
+- (void) jsonDidFinishLoading:(id)data {
     int i;
     
     for (i = 0; i < [data count]; i++) {
@@ -85,8 +104,13 @@
         [stationsArray addObject:station];
     }
     
+    [stationsArray addObject:@"Logout"];
+    
     
     [self.tableView reloadData];
+    _tableView.hidden = NO;
+    _loadingView.hidden = YES;
+    [_loadingView stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning

@@ -6,33 +6,90 @@
 //  Copyright (c) 2014 David Turissini. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "LevelsFMAppDelegate.h"
 #import "UserStationsViewController.h"
 #import "LevelsFMViewController.h"
-#import "LoginViewController.h"
+#import "SCUI.h"
+#import "User.h"
 
 
 @implementation LevelsFMAppDelegate
 
-@synthesize window, userStationsViewController, levelsFMViewController, loginViewController;
+@synthesize window, userStationsViewController, levelsFMViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    [SCSoundCloud setClientID:@"99308a0184193d62e064cb770f4c1eae"
+                       secret:@"8b222f6a853ea509d910ee3e037c6c8b"
+                  redirectURL:[NSURL URLWithString:@"sampleproject://oauth"]];
+    
+    
+    
     window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     levelsFMViewController = [[LevelsFMViewController alloc] initWithNibName:@"LevelsFMViewController" bundle:nil];
     
-    userStationsViewController = [[UserStationsViewController alloc] initWithNibName:@"UserStationsViewController" bundle:nil];
     
-    //loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-
+    _user = [User shared];
+    _user.delegate = self;
+    UIViewController *rootViewController = [self _getRootView];
     
-    [levelsFMViewController pushViewController:userStationsViewController animated:NO];
-    window.rootViewController = levelsFMViewController;
     
+    [self _setAVPermissions];
+    
+    window.rootViewController = rootViewController;
     [window makeKeyAndVisible];
     
     return YES;
+}
+
+- (void) _setAVPermissions {
+    //[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+}
+
+- (UIViewController *) _getRootView {
+    UIViewController *view;
+    
+    if ([_user isLoggedIn]) {
+        view = [self _createUserStationsViewController];
+    } else {
+        view = [self _createUserLoginViewController];
+    }
+    
+    return view;
+}
+
+- (UIViewController *)_createUserStationsViewController {
+    _navController = [[UINavigationController alloc] init];
+    userStationsViewController = [[UserStationsViewController alloc] initWithNibName:@"UserStationsViewController" bundle:nil];
+    [levelsFMViewController pushViewController:userStationsViewController animated:NO];
+    [_navController pushViewController:userStationsViewController animated:NO];
+    return _navController;
+}
+
+- (UIViewController *)_createUserLoginViewController {
+    return [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+}
+
+- (void) userDidLogin:(id)sender {
+    NSLog(@"User did login");
+    window.rootViewController = [self _createUserStationsViewController];
+}
+
+- (void) userWillLogin:(id)sender {
+    NSLog(@"User will login");
+}
+
+- (void) userDidLogout:(id)sender {
+    NSLog(@"User did logout");
+    window.rootViewController = [self _createUserLoginViewController];
+}
+
+- (void) userWillLogout:(id)sender {
+    NSLog(@"User will logout");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

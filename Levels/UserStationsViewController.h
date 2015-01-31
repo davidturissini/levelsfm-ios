@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "LevelsFM.h"
+#import <CoreLocation/CoreLocation.h>
+#import "User.h"
 
-@interface UserStationsViewController : UIViewController <LevelsFMDelegate, UITableViewDataSource, UITableViewDelegate>
-    @property (strong, nonatomic) IBOutlet UITableView *tableView;
-    @property (strong, nonatomic) NSString *userId;
-    @property (strong, nonatomic) NSMutableArray *stationsArray;
+@interface UserStationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+    @property (strong) IBOutlet UITableView *tableView;
+    @property (strong) IBOutlet UIActivityIndicatorView *loadingView;
+    @property (strong) NSString *userId;
+    @property (strong) NSMutableArray *stationsArray;
+    @property (weak) User *user;
 @end

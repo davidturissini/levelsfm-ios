@@ -8,7 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "Model.h"
+#import "LevelsFM.h"
+#import "Track.h"
+
+typedef void (^StationNextTrackHandler)(Track*);
+
+@protocol StationDelegate
+
+- (void)stationNextTrackDidLoad:(Track *)track;
+
+@end
 
 @interface Station : Model
-
+    @property (nonatomic, assign) NSObject<StationDelegate> *delegate;
+    - (void) getNextTrack;
 @end

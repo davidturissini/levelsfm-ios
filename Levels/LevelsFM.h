@@ -9,15 +9,21 @@
 #import <Foundation/Foundation.h>
 @class LevelsFM;
 
-@protocol LevelsFMDelegate <NSObject>
-- (void) jsonDidFinishLoading:(LevelsFM *) sender json:(id)data;
-//- (void) jsonDidFailWithError:(LevelsFM *) sender error:(NSError *)error;
-@end
+typedef void (^LevelsRequestHandler)(NSDictionary*, NSURLResponse*, NSError*);
 
 @interface LevelsFM : NSObject
-@property (strong, nonatomic) NSString *domain;
-@property (strong, nonatomic) NSMutableData *responseData;
-@property (strong, nonatomic) id <LevelsFMDelegate> delegate;
-- (NSURLConnection *) request:(NSString *)path params:(NSDictionary *)params method:(NSString *)method;
-- (NSURLConnection *)request:(NSString *)path params:(NSDictionary *)params;
+
++ (void)  request:(NSString *)path
+           params:(NSDictionary *)params
+completionHandler:(LevelsRequestHandler) levelsRequestHandler;
+
++ (void)    get:(NSString *)path
+          params:(NSDictionary *)params
+completionHandler:(LevelsRequestHandler) levelsRequestHandler;
+
++ (void)    post:(NSString *)path
+          params:(NSDictionary *)params
+completionHandler:(LevelsRequestHandler) levelsRequestHandler;
+
+
 @end

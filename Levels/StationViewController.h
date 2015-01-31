@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "Station.h"
 #import "LevelsFM.h"
+#import "UIPlayerView.h"
+#import "Player.h"
+#import "Queue.h"
 
-@interface StationViewController : UIViewController <LevelsFMDelegate>
-    @property (weak, nonatomic) IBOutlet UILabel *stationTitle;
+@interface StationViewController : UIViewController <StationDelegate>
+    @property (weak, nonatomic) IBOutlet UILabel *artistName;
+    @property (weak, nonatomic) IBOutlet UILabel *trackName;
+    @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *trackLoading;
+    @property (weak, nonatomic) IBOutlet UIImageView *artistImageView;
+    @property (strong, nonatomic) IBOutlet UIPlayerView *playerView;
     @property (weak, nonatomic) Station *station;
+    @property (strong, nonatomic) Player *player;
+    @property (strong, nonatomic) Queue *playlist;
+    @property (strong, nonatomic, readonly) Track *currentTrack;
 @end

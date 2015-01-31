@@ -7,7 +7,12 @@
 //
 
 #import "Model.h"
+#import "SCUI.h"
+
+typedef void (^SCTrackFetchHandler)(NSDictionary*);
 
 @interface Track : Model
+    @property (strong) NSURL *streamURL;
 
+    -(void)fetchSCData:(SCTrackFetchHandler)trackFetchHandler;
 @end

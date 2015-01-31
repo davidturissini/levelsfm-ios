@@ -8,90 +8,119 @@
 
 #import "LevelsFM.h"
 
+
 @implementation LevelsFM
 
-@synthesize domain, delegate;
 
-- (LevelsFM *) init {
-    self = [super init];
++ (void) request:(NSString *)path
+          params:(NSDictionary *) params
+          method:(NSString *)method
+completionHandler:(LevelsRequestHandler)levelsRequestHandler {
     
-    if (self) {
-        self.domain = @"http://levelsfm-backend.herokuapp.com";
+    NSURLComponents *urlComponents = [self _buildURLComponents:path
+                                                        params:params];
+
+    
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:urlComponents.URL];
+    [urlRequest setHTTPMethod:method];
+    
+    if ([method isEqualToString:@"POST"]) {
+        NSString *postBody = [self _convertDictionaryToPostParams:params];
+        NSData *requestBodyData = [postBody dataUsingEncoding:NSUTF8StringEncoding];
+        [urlRequest setHTTPBody:requestBodyData];
     }
     
-    return self;
+    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response,
+                                               NSData *data,
+                                               NSError *connectionError) {
+                               
+                               if (connectionError) {
+                                   NSLog(@"Connection error");
+                               }
+                               
+                               NSDictionary *json = [self _handleJSON:data];
+                               levelsRequestHandler(json, response, connectionError);
+                           }];
+}
+
++ (void) get:(NSString *) path
+      params:(NSDictionary *)params
+completionHandler:(LevelsRequestHandler)levelsRequestHandler {
+    return [self request:path params:params method:@"GET" completionHandler:levelsRequestHandler];
+}
+
++ (void) post:(NSString *) path
+       params:(NSDictionary *)params
+completionHandler:(LevelsRequestHandler)levelsRequestHandler {
+    return [self request:path params:params method:@"POST" completionHandler:levelsRequestHandler];
 }
 
 
-- (NSURLConnection *)request:(NSString *)path params:(NSDictionary *)params method:(NSString *)method {
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@%@", domain, path];
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:method];
-    
-    if (params != nil) {
-        NSData *requestData = [NSJSONSerialization dataWithJSONObject:params options:0 error:NULL];
-        [request setHTTPBody:requestData];
-    }
-    
-    NSURLConnection *loginConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    
-    return loginConnection;
-    
+/** 
+ 
+   @private
+ 
+ */
++ (NSString *) _host {
+    return @"levelsfm-backend.herokuapp.com";
 }
 
-- (NSURLConnection *)request:(NSString *)path params:(NSDictionary *)params {
-    return [self request:path params:params method:@"GET"];
-    
-}
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    self.responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [self.responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    NSString *data = [[NSString alloc] initWithData:self.responseData encoding:NSASCIIStringEncoding];
-    
++ (NSDictionary *) _handleJSON:(NSData *)rawJSONData {
     NSError *error;
     
+    NSDictionary *json = [NSJSONSerialization
+                JSONObjectWithData:rawJSONData
+                options:NSJSONReadingMutableLeaves
+                error:&error];
     
-    id object = [NSJSONSerialization
-                 JSONObjectWithData:self.responseData
-                 options:0
-                 error:&error];
+    if (error) {
+        NSLog(@"Error parsing JSON");
+    }
     
-    
-    [delegate jsonDidFinishLoading:self json:object];
-   
+    return json;
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    //[delegate jsonDidFailWithError:self error:error];
+
++ (NSURLComponents *)_buildURLComponents:(NSString *)path
+                                  params:(NSDictionary *) params {
+    
+    NSURLComponents *urlComponents = [[NSURLComponents alloc] init];
+    urlComponents.scheme = @"http";
+    urlComponents.host = [self _host];
+    urlComponents.path = path;
+    urlComponents.queryItems = [self _dictionaryToQueryItems:params];
+    
+    return urlComponents;
+}
+
++ (NSString *)_convertDictionaryToPostParams:(NSDictionary *)dict {
+    NSMutableArray *stringArray = [[NSMutableArray alloc] init];
+    for(id key in dict) {
+        NSString *str = [[NSString alloc] initWithFormat:@"%@=%@", key, [dict valueForKey:key]];
+        [stringArray addObject:str];
+    }
+    
+    return [stringArray componentsJoinedByString:@"&"];
+}
+
++ (NSArray *)_dictionaryToQueryItems:(NSDictionary *)dict {
+    NSMutableArray *queryItems = [[NSMutableArray alloc] init];
+    
+    if (!dict) {
+        return queryItems;
+    }
+    
+    for(id key in dict) {
+        NSURLQueryItem *item = [[NSURLQueryItem alloc] initWithName:key value:[dict valueForKey:key]];
+        
+        [queryItems addObject:item];
+    }
+    
+    return queryItems;
+    
 }
 
 @end
