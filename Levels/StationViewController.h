@@ -20,7 +20,7 @@
     @property (weak, nonatomic) IBOutlet UIImageView *artistImageView;
     @property (strong, nonatomic) IBOutlet UIPlayerView *playerView;
     @property (weak, nonatomic) Station *station;
-    @property (strong, nonatomic) Player *player;
+    @property (weak, nonatomic) Player *player;
     @property (strong, nonatomic) Queue *playlist;
     @property (strong, nonatomic, readonly) Track *currentTrack;
 @end

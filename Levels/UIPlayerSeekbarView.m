@@ -33,6 +33,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPlayerTimeupdate:) name:@"timeupdate" object:_player];
 }
 
+- (void)removePlayerNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"canplay" object:_player];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timeupdate" object:_player];
+}
+
+- (void) dealloc {
+    [self removePlayerNotifications];
+    
+}
+
 -(void) onPlayerCanPlay:(NSNotificationCenter *)notificationCenter {
     [self setMaximumValue:_player.duration];
 }

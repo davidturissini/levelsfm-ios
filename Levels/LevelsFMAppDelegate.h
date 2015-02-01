@@ -11,9 +11,11 @@
 #import "LevelsFM.h"
 #import "User.h"
 #import "LoginViewController.h"
+#import "Player.h";
 
 @class UserStationsViewController;
 @class LevelsFMViewController;
+@class LevelsFMAppDelegate;
 
 @interface LevelsFMAppDelegate : UIResponder <UIApplicationDelegate, UserDelegate>
 
@@ -24,4 +26,5 @@
     @property (nonatomic, retain) UINavigationController *navController;
     @property (nonatomic, retain) LevelsFM *levels;
     @property (nonatomic, retain) User *user;
+    @property (strong) Player *player;
 @end

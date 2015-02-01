@@ -93,4 +93,14 @@ NSString *const EVENT_ENDED = @"ended";
     }
 }
 
++ (Player *)shared {
+    static Player __strong *appPlayer = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        appPlayer = [[self alloc] init];
+    });
+    return appPlayer;
+    
+}
+
 @end

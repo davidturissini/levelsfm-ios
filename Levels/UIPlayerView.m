@@ -51,19 +51,19 @@
 
 - (void)setPlayer:(Player *)player {
     if (_player != nil) {
-        [self _removePlayerNotifications];
+        [self removePlayerNotifications];
     }
     
     _player = player;
     
-    [self _attachPlayerNotifications];
+    [self attachPlayerNotifications];
 }
 
--(void) _removePlayerNotifications {
+-(void) removePlayerNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timeupdate" object:_player];
 }
 
-- (void) _attachPlayerNotifications {
+- (void) attachPlayerNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPlayerTimeupdate:) name:@"timeupdate" object:_player];
     
 }
@@ -72,6 +72,10 @@
     [_timeElapsed printFormattedSeconds:_player.currentTime];
     [_timeRemaining printFormattedSeconds:_player.duration - _player.currentTime];
 
+}
+
+- (void) dealloc {
+    [self removePlayerNotifications];
 }
 
 /*

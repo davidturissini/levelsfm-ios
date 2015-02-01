@@ -74,7 +74,7 @@
 }
 
 - (void)_initPlayer {
-    _player = [[Player alloc] init];
+    _player = [Player shared];
     
     CGRect playerViewRect = CGRectMake(0, self.view.frame.size.height - 70, self.view.frame.size.width, 50);
     

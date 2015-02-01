@@ -20,4 +20,5 @@
     - (void) load;
     - (void) play;
     - (void) pause;
+    + (Player *)shared;
 @end

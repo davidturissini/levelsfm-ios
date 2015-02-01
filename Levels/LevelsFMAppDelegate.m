@@ -16,7 +16,7 @@
 
 @implementation LevelsFMAppDelegate
 
-@synthesize window, userStationsViewController, levelsFMViewController;
+@synthesize window, userStationsViewController, levelsFMViewController, player;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -37,6 +37,7 @@
     
     
     [self _setAVPermissions];
+    player = [Player shared];
     
     window.rootViewController = rootViewController;
     [window makeKeyAndVisible];
